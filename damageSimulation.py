@@ -27,7 +27,7 @@ spellHit = min(0.83 + spellHit_0 + 0.04, 0.99)
 spellHaste = spellHaste_0
 
 ### 调用模拟函数 ###
-def simlation(simFuntion, totalTime spellDamage = spellDamage, arcanePower = arcanePower,\
+def simlation(simFuntion, totalTime, spellDamage = spellDamage, arcanePower = arcanePower,\
                spellCrit = spellCrit, spellHit = spellHit, spellHaste = spellHaste):
     return simFuntion(totalTime, spellDamage = spellDamage, arcanePower = arcanePower,\
                spellCrit = spellCrit, spellHit = spellHit, spellHaste = spellHaste)

@@ -83,8 +83,6 @@ def simlation1(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHa
                     naturesGrace = 0
                 else:
                     time += max(3/(1 + spellHaste + quag(time, trinketFade_2)), 1.)
-                if time > trinketFade_1:
-                    spellDamage_1 = spellDamage
                 if random.random() < spellHit:
                     if random.random() < spellCrit + 0.04:
                         damage += starFire_1(spellDamage + icon(time, trinketFade_1), arcanePower)[1]
@@ -147,8 +145,6 @@ def simlation2(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHa
                     naturesGrace = 0
                 else:
                     time += max(3/(1 + spellHaste + quag(time, trinketFade_2)), 1.)
-                if time > trinketFade_1:
-                    spellDamage_1 = spellDamage
                 if random.random() < spellHit:
                     if random.random() < spellCrit + 0.04:
                         if moonFireFade - time < 0.:
@@ -227,8 +223,6 @@ def simlation3(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHa
                     naturesGrace = 0
                 else:
                     time += max(3/(1 + spellHaste + quag(time, trinketFade_2)), 1.)
-                if time > trinketFade_1:
-                    spellDamage_1 = spellDamage
                 if random.random() < spellHit:
                     if random.random() < spellCrit + 0.04:
                         damage += starFire_1(spellDamage + icon(time, trinketFade_1), arcanePower)[1]
@@ -297,8 +291,6 @@ def simlation4(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHa
                     naturesGrace = 0
                 else:
                     time += max(3/(1 + spellHaste), 1.)
-                if time > trinketFade_1:
-                    spellDamage_1 = spellDamage
                 if random.random() < spellHit:
                     if random.random() < spellCrit + 0.04:
                         damage += starFire_1(spellDamage + icon(time, trinketFade_1) + Sextant(time, trinketFade_3),\
