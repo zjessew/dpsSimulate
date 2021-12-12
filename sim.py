@@ -29,12 +29,15 @@ def icon(time, fadeTime): # trinket_1
 def quag(time, fadeTime): # trinket_2
     return 320/15.77*0.01*(time < fadeTime)
 
-def Sextant(time, fadeTime): # trinket_1
+def Sextant(time, fadeTime): # trinket_3
     return 190*(time < fadeTime)
+
+def Ashtongue(time, fadeTime): # trinket_4  
+    return 150*(time < fadeTime)
 
 ### 伤害模拟 ###
 # Icon and Quag, moonfire priority
-def simlation1(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHaste):
+def simulation1(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHaste):
     faerieFireFade = 0.
     moonFireFade = 0.
     trinketFade_1 = 0.
@@ -98,7 +101,7 @@ def simlation1(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHa
     return damage, ffCast, mfCast, sfCast
 
 # Icon and Quag, starfire priority
-def simlation2(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHaste):
+def simulation2(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHaste):
     faerieFireFade = 0.
     moonFireFade = 0.
     trinketFade_1 = 0.
@@ -166,7 +169,7 @@ def simlation2(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHa
     return damage, ffCast, mfCast, sfCast
 
 # Icon and Quag, starfire + insectswarm
-def simlation3(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHaste):
+def simulation3(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHaste):
     faerieFireFade = 0.
     moonFireFade = 0.
     insectSwarmFade = 0.
@@ -239,7 +242,7 @@ def simlation3(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHa
     return damage, ffCast, mfCast, isCast, sfCast
 
 # Icon and Sextant, moonfire priority
-def simlation4(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHaste):
+def simulation4(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHaste):
     faerieFireFade = 0.
     moonFireFade = 0.
     trinketFade_1 = 0.
@@ -303,6 +306,68 @@ def simlation4(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHa
                     else:
                         damage += starFire_1(spellDamage + icon(time, trinketFade_1) + Sextant(time, trinketFade_3),\
                                              arcanePower)[0]
+                            
+    damage -= int(min(moonFireFade - totalTime, 0)/3)*moonFireDot
+    return damage, ffCast, mfCast, sfCast
+
+# Icon and Ashtongue, moonfire priority
+def simulation5(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHaste):
+    faerieFireFade = 0.
+    moonFireFade = 0.
+    trinketFade_1 = 0.
+    trinketFade_4 = 0.
+    trinketCd_1 = 0.
+    naturesGrace = 0
+    time = 0.
+    damage = 0.
+    moonFireDot = 0.
+    ffCast = 0
+    mfCast = 0
+    sfCast = 0
+    
+    while time < totalTime:
+        if faerieFireFade - time < 3.:
+            ffCast += 1
+            if random.random() < spellHit:
+                faerieFireFade = time + 40
+            time += max(1.5/(1 + spellHaste), 1.)
+        else:
+            if (naturesGrace == 0 and moonFireFade - time < 3.) or (naturesGrace == 1 and moonFireFade - time < 2.5):
+                mfCast += 1
+                if moonFireFade > time:
+                    damage -= moonFireDot
+                moonFireDot = moonFire(spellDamage + icon(time, trinketFade_1) + Ashtongue(time, trinketFade_4),\
+                                       arcanePower)[2]
+                if random.random() < spellHit:
+                    if random.random() < spellCrit + 0.1:
+                        damage += moonFire(spellDamage + icon(time, trinketFade_1) + Ashtongue(time, trinketFade_4),\
+                                           arcanePower)[1]
+                        naturesGrace = 1
+                    else:
+                        damage += moonFire(spellDamage + icon(time, trinketFade_1) + Ashtongue(time, trinketFade_4),\
+                                           arcanePower)[0]
+                    moonFireFade = time + 12
+                time += max(1.5/(1 + spellHaste), 1.)
+            else:
+                if trinketCd_1 <= time:
+                    trinketCd_1 = time + 120
+                    trinketFade_1 = time + 20
+                sfCast += 1
+                if naturesGrace == 1:
+                    time += max(3/(1 + spellHaste) - 0.5, 1.)
+                    naturesGrace = 0
+                else:
+                    time += max(3/(1 + spellHaste), 1.)
+                if random.random() < spellHit:
+                    if random.random() < spellCrit + 0.04:
+                        damage += starFire_1(spellDamage + icon(time, trinketFade_1) + Ashtongue(time, trinketFade_4),\
+                                             arcanePower)[1]
+                        naturesGrace = 1
+                    else:
+                        damage += starFire_1(spellDamage + icon(time, trinketFade_1) + Ashtongue(time, trinketFade_4),\
+                                             arcanePower)[0]
+                    if random.random() < 0.25:
+                        trinketFade_4 = time + 8
                             
     damage -= int(min(moonFireFade - totalTime, 0)/3)*moonFireDot
     return damage, ffCast, mfCast, sfCast
