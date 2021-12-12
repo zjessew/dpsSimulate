@@ -27,8 +27,7 @@ def icon(time, fadeTime): # trinket_1
     return 155*(time < fadeTime)
 
 def quag(time, fadeTime): # trinket_2
-    return 0
-    #return 320/15.77*0.01*(time < fadeTime)
+    return 320/15.77*0.01*(time < fadeTime)
 
 def Sextant(time, fadeTime): # trinket_1
     return 190*(time < fadeTime)
