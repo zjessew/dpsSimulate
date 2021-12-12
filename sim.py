@@ -35,7 +35,7 @@ def Sextant(time, fadeTime): # trinket_1
 
 ### 伤害模拟 ###
 # Icon and Quag, moonfire priority
-def simlation1(totalTime, intellect, spellDamage, arcanePower, spellCrit, spellHit, spellHaste):
+def simlation1(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHaste):
     faerieFireFade = 0.
     moonFireFade = 0.
     trinketFade_1 = 0.
@@ -101,7 +101,7 @@ def simlation1(totalTime, intellect, spellDamage, arcanePower, spellCrit, spellH
     return damage, ffCast, mfCast, sfCast
 
 # Icon and Quag, starfire priority
-def simlation2(totalTime, intellect, spellDamage, arcanePower, spellCrit, spellHit, spellHaste):
+def simlation2(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHaste):
     faerieFireFade = 0.
     moonFireFade = 0.
     trinketFade_1 = 0.
@@ -171,7 +171,7 @@ def simlation2(totalTime, intellect, spellDamage, arcanePower, spellCrit, spellH
     return damage, ffCast, mfCast, sfCast
 
 # Icon and Quag, starfire + insectswarm
-def simlation3(totalTime, intellect, spellDamage, arcanePower, spellCrit, spellHit, spellHaste):
+def simlation3(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHaste):
     faerieFireFade = 0.
     moonFireFade = 0.
     insectSwarmFade = 0.
@@ -246,7 +246,7 @@ def simlation3(totalTime, intellect, spellDamage, arcanePower, spellCrit, spellH
     return damage, ffCast, mfCast, isCast, sfCast
 
 # Icon and Sextant, moonfire priority
-def simlation4(totalTime, intellect, spellDamage, arcanePower, spellCrit, spellHit, spellHaste):
+def simlation4(totalTime, spellDamage, arcanePower, spellCrit, spellHit, spellHaste):
     faerieFireFade = 0.
     moonFireFade = 0.
     trinketFade_1 = 0.

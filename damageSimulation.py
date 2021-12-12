@@ -27,9 +27,9 @@ spellHit = min(0.83 + spellHit_0 + 0.04, 0.99)
 spellHaste = spellHaste_0
 
 ### 调用模拟函数 ###
-def simlation(simFuntion, totalTime, intellect = intellect, spellDamage = spellDamage, arcanePower = arcanePower,\
+def simlation(simFuntion, totalTime spellDamage = spellDamage, arcanePower = arcanePower,\
                spellCrit = spellCrit, spellHit = spellHit, spellHaste = spellHaste):
-    return simFuntion(totalTime, intellect = intellect, spellDamage = spellDamage, arcanePower = arcanePower,\
+    return simFuntion(totalTime, spellDamage = spellDamage, arcanePower = arcanePower,\
                spellCrit = spellCrit, spellHit = spellHit, spellHaste = spellHaste)
 
 total1 = np.zeros(3)
@@ -52,3 +52,13 @@ for i in range(1000):
     total3[1] += simlation(sim.simlation2, 500)[0]
     total3[2] += simlation(sim.simlation3, 500)[0]
 dps3 = total3/1000/500
+
+'''
+Effect of Guag is about 55 spelldamage
+spellDamage = spellDamage_0 + (intellect-intellect_0)*0.25 + 23 + 36 + 101 + 24 + 55
+total = 0.
+for i in range(1000):
+    total += sim.simlation1(200, spellDamage = spellDamage, arcanePower = arcanePower,\
+               spellCrit = spellCrit, spellHit = spellHit, spellHaste = spellHaste))[0]
+dps = total/1000/200
+'''
